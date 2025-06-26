@@ -67,7 +67,7 @@ async function fetchCurrentRemindersAndExecute() {
     reminders.forEach(async (reminder) => {
         const user = (reminder.userId as unknown) as { email: string };
         await sendMail({
-            from: '"Reminder 💡" <techwithmihir@gmail.com>',
+            from: `"Reminder 💡" <${process.env.APP_EMAIL}>`,
             to: user.email,
             subject: reminder.title,
             text: reminder.description,
