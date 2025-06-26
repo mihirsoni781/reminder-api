@@ -1,11 +1,4 @@
 import nodemailer from 'nodemailer';
-const transporter = nodemailer.createTransport({
-    service: process.env.APP_EMAIL_SERVICE || 'gmail',
-    auth: {
-        user: process.env.APP_EMAIL,                // your Gmail address
-        pass: process.env.APP_EMAIL_PASS,          // NOT your Gmail password — use App Password
-    },
-});
 
 type MailOption = {
     from: string;
@@ -15,6 +8,13 @@ type MailOption = {
 }
 
 export function sendMail(mailOption: MailOption) {
+    const transporter = nodemailer.createTransport({
+        service: process.env.APP_EMAIL_SERVICE || 'gmail',
+        auth: {
+            user: process.env.APP_EMAIL,                // your Gmail address
+            pass: process.env.APP_EMAIL_PASS,          // NOT your Gmail password — use App Password
+        },
+    });
     transporter.sendMail(mailOption, (error, info) => {
         if (error) {
             return console.error('Error sending email:', error);
